@@ -3,7 +3,10 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'reactstrap';
+
+import { useCart } from '../hooks/useCart';
 import { ProductType } from '../services/products';
+
 import SuccessToast from './SuccessToast';
 
 type ProductDetailsProps = {
@@ -12,6 +15,7 @@ type ProductDetailsProps = {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [toastIsOpen, setToastIsOpen] = useState(false);
+  const { addProduct } = useCart();
 
   return (
     <Row>
@@ -40,6 +44,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           color='dark'
           className='my-3 pb-2'
           onClick={() => {
+            addProduct(product);
             setToastIsOpen(true);
             setTimeout(() => setToastIsOpen(false), 1000 * 3);
           }}
